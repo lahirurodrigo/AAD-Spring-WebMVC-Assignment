@@ -60,9 +60,17 @@ public class CustomerController{
     }
 
     @PutMapping(value = "/{customerID}")
-    public CustomerDTO updateCustomer(@PathVariable ("customerID") String customerID,
+    public ResponseEntity<Void> updateCustomer(@PathVariable ("customerID") String customerID,
                                            @RequestBody CustomerDTO updatedCustomerDTO){
-        return null;
+
+        try {
+            customerService.updateCustomer(customerID, updatedCustomerDTO);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (CustomerNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }
