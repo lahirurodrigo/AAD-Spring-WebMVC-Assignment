@@ -6,6 +6,7 @@ import lk.ijse.aadspringwebmvcassignment.dao.CustomerDAO;
 import lk.ijse.aadspringwebmvcassignment.dto.CustomerStatus;
 import lk.ijse.aadspringwebmvcassignment.dto.impl.CustomerDTO;
 import lk.ijse.aadspringwebmvcassignment.entity.impl.CustomerEntity;
+import lk.ijse.aadspringwebmvcassignment.exception.CustomerNotFoundException;
 import lk.ijse.aadspringwebmvcassignment.exception.DataPersistException;
 import lk.ijse.aadspringwebmvcassignment.service.CustomerService;
 import lk.ijse.aadspringwebmvcassignment.util.Mapping;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -45,7 +47,13 @@ public class CustomerServiceIMPL implements CustomerService {
     }
 
     @Override
-    public void deleteCustomer(String customerId) {
+    public  void deleteCustomer(String customerId) {
+        Optional<CustomerEntity> customerEntity = customerDAO.findById(customerId);
+        if (!customerEntity.isPresent()) {
+            throw new CustomerNotFoundException("Customer not found");
+        }else{
+            customerDAO.delete(customerEntity.get());
+        }
 
     }
 
