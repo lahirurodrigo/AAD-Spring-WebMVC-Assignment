@@ -2,10 +2,12 @@ package lk.ijse.aadspringwebmvcassignment.service.impl;
 
 import lk.ijse.aadspringwebmvcassignment.dto.impl.CustomerDTO;
 import lk.ijse.aadspringwebmvcassignment.service.CustomerService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class CustomerServiceIMPL implements CustomerService {
     @Override
     public CustomerDTO save(CustomerDTO customerDTO) {
