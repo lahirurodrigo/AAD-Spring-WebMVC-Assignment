@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CustomerService {
-    CustomerDTO save(CustomerDTO customerDTO);
+    void save(CustomerDTO customerDTO);
     List<CustomerDTO> getAllCustomers();
     Optional<CustomerDTO> findCustomer(String customerId);
     void deleteCustomer(String customerId);
