@@ -1,6 +1,7 @@
 package lk.ijse.aadspringwebmvcassignment.controller;
 
 
+import lk.ijse.aadspringwebmvcassignment.dto.CustomerStatus;
 import lk.ijse.aadspringwebmvcassignment.dto.impl.CustomerDTO;
 import lk.ijse.aadspringwebmvcassignment.exception.DataPersistException;
 import lk.ijse.aadspringwebmvcassignment.service.CustomerService;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("api/v1/customer")
@@ -34,13 +36,13 @@ public class CustomerController{
     }
 
     @GetMapping(value = "/{customerID}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public CustomerDTO getSelectedCustomer(@PathVariable ("customerID") String customerID){
-        return null;
+    public CustomerStatus getSelectedCustomer(@PathVariable ("customerID") String customerID){
+        return customerService.findCustomer(customerID);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<CustomerDTO> getALlCustomers(){
-        return null;
+        return customerService.getAllCustomers();
     }
 
     @DeleteMapping(value = "/{customerID}")
